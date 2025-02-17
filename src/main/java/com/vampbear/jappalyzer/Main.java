@@ -35,32 +35,38 @@ public class Main {
                 processLink(arg, cmd);
             }
             long duration = System.currentTimeMillis() - startTimestamp;
-            if (verbose) System.out.println("Processing time: " + duration + "ms");
+            if (verbose)
+                System.out.println("Processing time: " + duration + "ms");
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
 
     private static void processLink(String url, CommandLine cmd) {
-        if (verbose) System.out.println("Processing URL: " + url);
+        if (verbose)
+            System.out.println("Processing URL: " + url);
         try {
-            if (verbose) System.out.println("Loading technology data");
+            if (verbose)
+                System.out.println("Loading technology data");
 
             Jappalyzer jappalyzer;
             if (latest) {
-                if (verbose) System.out.println("Loading latest technologies data");
+                if (verbose)
+                    System.out.println("Loading latest technologies data");
                 jappalyzer = Jappalyzer.latest();
             } else {
                 jappalyzer = Jappalyzer.create();
             }
 
             List<Technology> instanceTechnologies = jappalyzer.getTechnologies();
-            if (verbose) System.out.println("Known technologies size: " + instanceTechnologies.size());
+            if (verbose)
+                System.out.println("Known technologies size: " + instanceTechnologies.size());
             HttpClient httpClient = new HttpClient();
             long loadingPageStartTimestamp = System.currentTimeMillis();
             PageResponse pageResponse = httpClient.getPageByUrl(url);
             long duration = System.currentTimeMillis() - loadingPageStartTimestamp;
-            if (verbose) System.out.println("Page loaded with " + duration + "ms");
+            if (verbose)
+                System.out.println("Page loaded with " + duration + "ms");
             Set<TechnologyMatch> foundTechs = jappalyzer.fromPageResponse(pageResponse);
             System.out.println("Technologies:");
             if (groupByCategories) {
@@ -88,9 +94,11 @@ public class Main {
         }
     }
 
-    private static String getTechnologyMatchString(TechnologyMatch technologyMatch, boolean showCategory, boolean padding) {
+    private static String getTechnologyMatchString(TechnologyMatch technologyMatch, boolean showCategory,
+            boolean padding) {
         StringBuilder sb = new StringBuilder();
-        if (padding) sb.append("  ");
+        if (padding)
+            sb.append("  ");
         sb.append("* ");
         sb.append(technologyMatch.getTechnology().getName());
         if (!technologyMatch.getVersion().isEmpty()) {
